@@ -1,6 +1,7 @@
 import React from 'react';
 import '../output.css';
 import background_pic from '../img/keycoffee1.jpg';
+import opera from '../img/opera.mp4';
 
 let ID = 'hello';
 let PW = 'world';
@@ -48,7 +49,7 @@ const TestPage = () => {
   <a href="/reports" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Reports</a>
 </nav>
 <div>
-<iframe className="w-full aspect-video rounded-3xl" src="https://youtube.com/embed/BjGZ6Itrsac"></iframe>
+<iframe className="w-full aspect-video rounded-3xl" src={opera}></iframe>
 </div>
 {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/9TZ8A1VZz_8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
 </div>

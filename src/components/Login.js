@@ -1,6 +1,7 @@
 import React from 'react';
 import '../output.css';
 import background_pic from '../img/keycoffee1.jpg';
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
 let ID = 'hello';
 let PW = 'world';
@@ -9,7 +10,7 @@ let PW = 'world';
 const Login = () => {
   return (
 
-  <div class="flex items-center justify-center min-h-screen">
+  <div class="flex items-center justify-center min-h-screen bg-opacity-50">
     <div class="fixed inset-0 flex items-center justify-center">
       <img src={background_pic} alt="Background Image" class="object-cover min-w-full min-h-full absolute z-0"/>
     </div>
@@ -27,7 +28,7 @@ const Login = () => {
           </div>
           <div className='flex justify-between'>
             <button type="submit" className="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md focus:outline-none focus:bg-blue-700">로그인</button>
-            <button type="submit" className="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md focus:outline-none focus:bg-blue-700">회원가입</button>
+            <button type="button" className="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md focus:outline-none focus:bg-blue-700"><Link to="signup">회원가입</Link></button>
           </div>
         </form>
       </div>
@@ -37,4 +38,3 @@ const Login = () => {
 }
 
 export default Login;
-
