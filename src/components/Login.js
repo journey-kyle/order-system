@@ -17,7 +17,6 @@ const Login = () => {
     <div className="max-w-md w-full z-10">
         <h2 className="text-3xl font-bold mb-4">KEYCOFFEE</h2>
         <form>
-          
           <div className="mb-4">
             <label htmlFor="email" className="black mb-2 text-md font-medium text-gray-600">이메일</label>
             <input type="email" id="email" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
