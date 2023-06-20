@@ -1,6 +1,6 @@
 import React from 'react';
 import '../output.css';
-import background_pic from '../img/keycoffee1.JPG';
+import background_pic from '../img/keycoffee1.jpg';
 import opera from '../img/opera.mp4';
 
 let ID = 'hello';

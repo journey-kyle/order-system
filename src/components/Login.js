@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import '../output.css';
 import keycoffee_logo from '../img/keycoffee_logo.png';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-import background_pic from '../img/keycoffee1.JPG';
+// import background_pic from '../img/keycoffee1.JPG';
 import axios from 'axios';
 
+const background_pic = require('../img/keycoffee1.jpg');
 
 // let [ID, fixid] = useState("");
 // let PW = 'world';

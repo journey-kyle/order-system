@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import background_pic from '../img/keycoffee2.JPG';
+import background_pic from '../img/keycoffee2.jpg';
 import keycoffee_logo from '../img/keycoffee_logo.png';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
