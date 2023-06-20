@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import background_pic from '../img/keycoffee2.jpg';
+import background_pic from '../img/keycoffee2.JPG';
+import keycoffee_logo from '../img/keycoffee_logo.png';
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
 
 function SignUpForm(props) {
@@ -28,6 +30,7 @@ function SignUpForm(props) {
       }
   }
   
+  let [duleE, setDupleE] = useState(false);
   
 
 
@@ -57,39 +60,47 @@ function SignUpForm(props) {
       </div> */}
 
 
-      <div className='min-h-screen py-40 bg-gradient-to-r from-blue-500 via-pink-500 to-red-500'>
-        <div className='inset-0 flex items-center justify-center text-white text-6xl font-bold m-5'><h1>KEYCOFFEE</h1></div>
+      <div className='min-h-screen py-40 bg-gradient-to-r from-blue-300 via-pink-300 to-red-300'>
+        <div className='inset-0 flex items-center justify-center text-white text-xl md:text-5xl font-bold m-5'>
+          <img src={keycoffee_logo} alt="keycoffee logo" className='md:w-40 md:h-20 w-20 h-10'/>
+          <h1>KEYCOFFEE</h1>
+        </div>
         <div className='container mx-auto rounded-3xl bg-cover bg-center'>
-          <div className='flex flex-col lg:flex-row p-10 rounded-xl mx-auto shadow-lg overflow-hidden bg-gray-200'>
-            <div className='lg:w-3/5 relative m-6'>
+          <div className='flex flex-col lg:flex-row lg:p-10 p-5 rounded-xl mx-auto shadow-lg overflow-hidden bg-gray-200'>
+            <div className='lg:w-3/5 relative lg:m-4'>
               <img src={background_pic} alt="Background Image" class="min-w-full min-h-full z-0 rounded-3xl bg-opacity-50"/>
-              <div className='p-3 absolute top-2 left-0 w-1/2 h-full font-bold text-purple-600 z-10'>
-                <h1>환영합니다.</h1>
-                <p>안녕하세요, 사장님. 저희와 함께 파트너쉽을 맺어주셔서 대단히 감사드립니다. 저희가 할 수 있는 모든 지원을 아끼지 않겠습니다.</p>
+              <div className='p-3 absolute top-2 left-0 h-full font-bold text-purple-600 z-10 text-2xl'>
+                <h1>STAFF ONLY</h1>
               </div>
             </div>
             <div className='lg:w-2/5 p-4 m-4'>
-              <h2 className='font-bold text-2xl'>회원가입</h2>
-              <br/>
-              <label>E-mail</label>
-              <input type="email" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) key@coffee.com'/>
-              <label>Password</label>
-              <input type="password" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='비밀번호'/>
-              <label>Password 확인</label>
-              <input type="password" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='비밀번호 확인'/>
-              <label>이름</label>
-              <input type="text" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) 김커피'/>
-              <label>생년월일</label>
-              <input type="number" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) 19991231'/>
-              <label>지점명</label>
-              <input type="text" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명'/>
-              <br/>
-              <button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4'>뒤로가기</button>
-              <button className='flex float-right bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4'>가입하기</button>
+              <form action='http://138.2.57.165/server/signup' method='POST'>
+                <h2 className='font-bold lg:text-2xl text-lg'>회원가입</h2>
+                <br/>
+                <label>E-mail</label>
+                <div className='font-bold text-red-600 ml-4'>
+                  <text id='emailText'></text>
+                </div>
+                <input type="email" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) key@coffee.com' onChange={(e=>{
+                  setDupleE(false);
+                  document.getElementById("emailText").innerText="올바른 Email을 입력해 주세요.";
+                })} />
+                <label>Password</label>
+                <input type="password" id="pw" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='비밀번호'/>
+                <label>Password 확인</label>
+                <input type="password" id="pwchk" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='비밀번호 확인'/>
+                <label>이름</label>
+                <input type="text" id="name" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) 김커피'/>
+                <label>생년월일</label>
+                <input type="number" id="birth" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) 19991231'/>
+                <label>지점명</label>
+                <input type="text" id="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명'/>
+                <br/>
+                <Link to="/"><button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>뒤로가기</button></Link>
+                <button className='flex float-right bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>가입하기</button>
+              </form>
             </div>
-            
           </div>
-          
         </div>
       </div>
     </>

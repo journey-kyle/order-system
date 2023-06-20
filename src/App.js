@@ -8,6 +8,8 @@ import SignUpForm from './components/Signup_form';
 import TestPage from './components/TestPage';
 
 function App() {
+  document.title="KEYCOFFEE";
+  
   return (
     <div>
       <div>
