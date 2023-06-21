@@ -5,9 +5,13 @@ import keycoffee_logo from '../img/keycoffee_logo.png';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
 
-function SignUpForm(props) {
+function SignUpForm() {
 
-  const serviceKey = 'kAiLDgObwpKuhrpEw3Sv1mdXTyKxxTGb4bZ8WXARB0OjuqySB3vnEU0ygAt73e1LOkVdSLg2Oafov24B4bd%2Bpw%3D%3D'
+
+
+  let [pwE, setPwE] = useState(0)
+
+  // const serviceKey = 'kAiLDgObwpKuhrpEw3Sv1mdXTyKxxTGb4bZ8WXARB0OjuqySB3vnEU0ygAt73e1LOkVdSLg2Oafov24B4bd%2Bpw%3D%3D'
   let sendData = {"email":"", "password":"", "company_type":"", "company_number":"", "company_name":"", "name":""}
 
   function emailcheck(email){
@@ -21,16 +25,16 @@ function SignUpForm(props) {
 
       let regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[~!@#$%^&*<>?]).{8,20}$/i;
       
-      if(pw.length === 0 && pwcheck.length === 0) props.setPwE(1)    //아무것도 입력하지 않음
-      else if(!pw.match(regExp)) props.setPwE(2)     //올바른 비밀번호가 아님.
+      if(pw.length === 0 && pwcheck.length === 0) setPwE(1)    //아무것도 입력하지 않음
+      else if(!pw.match(regExp)) setPwE(2)     //올바른 비밀번호가 아님.
       else{
-          if(pw === pwcheck) props.setPwE(3)//<p>비밀번호가 일치합니다.</p>
-          else if(pwcheck.length === 0) props.setPwE(4)//<p></p>
-          else props.setPwE(5) //<p>비밀번호가 일치하지 않습니다.</p>
+          if(pw === pwcheck) setPwE(3)//<p>비밀번호가 일치합니다.</p>
+          else if(pwcheck.length === 0) setPwE(4)//<p></p>
+          else setPwE(5) //<p>비밀번호가 일치하지 않습니다.</p>
       }
   }
   
-  let [duleE, setDupleE] = useState(false);
+  let [dupleE, setDupleE] = useState(false)
   
 
 
@@ -68,18 +72,18 @@ function SignUpForm(props) {
         <div className='container mx-auto rounded-3xl bg-cover bg-center'>
           <div className='flex flex-col lg:flex-row lg:p-10 p-5 rounded-xl mx-auto shadow-lg overflow-hidden bg-gray-200'>
             <div className='lg:w-3/5 relative lg:m-4'>
-              <img src={background_pic} alt="Background Image" class="min-w-full min-h-full z-0 rounded-3xl bg-opacity-50"/>
+              <img src={background_pic} alt="Background Image" className="min-w-full min-h-full z-0 rounded-3xl bg-opacity-50"/>
               <div className='p-3 absolute top-2 left-0 h-full font-bold text-purple-600 z-10 text-2xl'>
                 <h1>STAFF ONLY</h1>
               </div>
             </div>
             <div className='lg:w-2/5 p-4 m-4'>
-              <form action='http://138.2.57.165/server/signup' method='POST'>
+              <form action='http://localhost:4000/server/signup' method='POST'>
                 <h2 className='font-bold lg:text-2xl text-lg'>회원가입</h2>
                 <br/>
                 <label>E-mail</label>
                 <div className='font-bold text-red-600 ml-4'>
-                  <text id='emailText'></text>
+                  <p id='emailText'></p>
                 </div>
                 <input type="email" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) key@coffee.com' onChange={(e=>{
                   setDupleE(false);
@@ -94,10 +98,13 @@ function SignUpForm(props) {
                 <label>생년월일</label>
                 <input type="number" id="birth" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) 19991231'/>
                 <label>지점명</label>
-                <input type="text" id="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명'/>
+                <input id="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명'/>
                 <br/>
                 <Link to="/"><button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>뒤로가기</button></Link>
-                <button className='flex float-right bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>가입하기</button>
+                <button className='flex float-right bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700' onClick={(e=>{
+                  passwordcheck(document.getElementById("pw").value, document.getElementById("pwchk").value);
+
+                })}>가입하기</button>
               </form>
             </div>
           </div>

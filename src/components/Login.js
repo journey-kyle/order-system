@@ -36,15 +36,17 @@ const Login = () => {
               sendData.ID = document.getElementById("ID").value;
               sendData.PW = document.getElementById("PW").value;
 
-              axios.post('http://138.2.57.165:4000/server/login', sendData).then((result)=>{
+              axios.post('http://localhost:4000/server/login', sendData).then((result)=>{
                 console.log(result.data);
                 if(!result.data.length){
                   console.log("엄써!?");
                 }else{
                   console.log("이써!!")
                 }
-                
               })
+              .catch(error =>{
+                console.error("에러!!");
+              });
             }}>Log In</button>
             {/* <Link to="signup"><button type="button" className="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white rounded-md focus:outline-none focus:bg-blue-700">회원가입</button></Link> */}
           </div>
