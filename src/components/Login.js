@@ -36,12 +36,12 @@ const Login = () => {
               sendData.ID = document.getElementById("ID").value;
               sendData.PW = document.getElementById("PW").value;
 
-              axios.post('http://138.2.57.165:4000/server/usr', sendData).then((result)=>{
+              axios.post('http://138.2.57.165:4000/server/login', sendData).then((result)=>{
                 console.log(result.data);
                 if(!result.data.length){
-                  console.log("이써!");
+                  console.log("엄써!?");
                 }else{
-                  console.log("엄써!?")
+                  console.log("이써!!")
                 }
                 
               })
