@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import '../output.css';
 import keycoffee_logo from '../img/keycoffee_logo.png';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 // import background_pic from '../img/keycoffee1.JPG';
 import axios from 'axios';
 
 const background_pic = require('../img/keycoffee1.jpg');
 
+let local_server = 'http://localhost:4000/login';
+let oracle_server = 'http://138.2.57.165/login';
+let test_server = 'http://localhost:4000/testfunction';
 // let [ID, fixid] = useState("");
 // let PW = 'world';
 
 let sendData = {"ID":"","PW":""};
 
 
-const Login = () => {
+function Login(){
+
+  const navigate = useNavigate();
+
   return (
+
 
   <div className="flex items-center justify-center min-h-screen bg-opacity-50">
     <div className="fixed inset-0 flex items-center justify-center">
@@ -36,16 +43,24 @@ const Login = () => {
               sendData.ID = document.getElementById("ID").value;
               sendData.PW = document.getElementById("PW").value;
 
-              axios.post('http://localhost:4000/server/login', sendData).then((result)=>{
+              axios.post(local_server, sendData).then((result)=>{
                 console.log(result.data);
-                if(!result.data.length){
-                  console.log("엄써!?");
+                if(result.data){
+                  setTimeout(function(){
+                    console.log("로그인 성공");
+                    navigate('/main');
+                  },200);
                 }else{
-                  console.log("이써!!")
+                  setTimeout(function(){
+                    console.log("아이디 혹은 비밀번호가 일치하지 않습니다.");
+                    alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+                  },200);
+                  
                 }
               })
               .catch(error =>{
-                console.error("에러!!");
+                console.error("There is Error from Server, Please contact Administrator");
+                alert("There is Error from Server, Please contact Administrator\n", error.data);
               });
             }}>Log In</button>
             {/* <Link to="signup"><button type="button" className="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white rounded-md focus:outline-none focus:bg-blue-700">회원가입</button></Link> */}

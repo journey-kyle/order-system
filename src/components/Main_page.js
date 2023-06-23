@@ -15,6 +15,8 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {Link} from 'react-router-dom';
+import keycoffee_logo from '../img/logo512.png'
 
 const navigation = {
   categories: [
@@ -136,6 +138,7 @@ const navigation = {
   pages: [
     { name: 'Company', href: '#' },
     { name: 'Stores', href: '#' },
+    { name: '내 정보', href: '#' },
   ],
 }
 
@@ -211,7 +214,7 @@ export default function Main_page() {
                           {category.featured.map((item) => (
                             <div key={item.name} className="group relative text-sm">
                               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
+                                <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center"/>
                               </div>
                               <a href={item.href} className="mt-6 block font-medium text-gray-900">
                                 <span className="absolute inset-0 z-10" aria-hidden="true" />
@@ -261,7 +264,7 @@ export default function Main_page() {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                      Sign in
+                      Sign out
                     </a>
                   </div>
                   <div className="flow-root">
@@ -278,7 +281,7 @@ export default function Main_page() {
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
                     />
-                    <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
+                    <span className="ml-3 block text-base font-medium text-gray-900">KOR</span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
@@ -311,7 +314,8 @@ export default function Main_page() {
                   <span className="sr-only">Your Company</span>
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    src={keycoffee_logo}
+                    // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt=""
                   />
                 </a>
@@ -419,13 +423,17 @@ export default function Main_page() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Sign in
-                  </a>
+                  <Link to='/'>
+                    <p className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Sign out
+                    </p>
+                  </Link>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Create account
-                  </a>
+                  <Link to='/signup'>
+                    <p className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Create account
+                    </p>
+                  </Link>
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
@@ -435,7 +443,7 @@ export default function Main_page() {
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
                     />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
+                    <span className="ml-3 block text-sm font-medium">KOR</span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
