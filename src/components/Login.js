@@ -43,7 +43,7 @@ function Login(){
               sendData.ID = document.getElementById("ID").value;
               sendData.PW = document.getElementById("PW").value;
 
-              axios.post(local_server, sendData).then((result)=>{
+              axios.post(oracle_server, sendData).then((result)=>{
                 console.log(result.data);
                 if(result.data){
                   setTimeout(function(){
