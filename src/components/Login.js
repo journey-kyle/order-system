@@ -43,7 +43,9 @@ function Login(){
               sendData.ID = document.getElementById("ID").value;
               sendData.PW = document.getElementById("PW").value;
 
-              axios.post(local_server, sendData).then((result)=>{
+              try{
+                axios.defaults.withCredentials = true;
+                axios.post(local_server, sendData).then((result)=>{
                 console.log(result.data);
                 if(result.data){
                   setTimeout(function(){
@@ -62,6 +64,12 @@ function Login(){
                 console.error("There is Error from Server, Please contact Administrator");
                 alert("There is Error from Server, Please contact Administrator\n", error.data);
               });
+
+              }catch(error){
+                console.error("There is Error from Server, Please contact Administrator");
+                alert("There is Error from Server, Please contact Administrator\n", error.data);
+              }
+              
             }}>Log In</button>
             {/* <Link to="signup"><button type="button" className="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white rounded-md focus:outline-none focus:bg-blue-700">회원가입</button></Link> */}
           </div>

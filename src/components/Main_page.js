@@ -263,9 +263,11 @@ export default function Main_page() {
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                    <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                      Sign out
-                    </a>
+                    <Link to='/'>
+                      <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                        Sign out
+                      </a>
+                    </Link>
                   </div>
                   <div className="flow-root">
                     <a href="#" className="-m-2 block p-2 font-medium text-gray-900">

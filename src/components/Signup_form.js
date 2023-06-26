@@ -1,18 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import background_pic from '../img/keycoffee2.jpg';
 import keycoffee_logo from '../img/keycoffee_logo.png';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import {useForm} from 'react-hook-form';
 
 
 function SignUpForm() {
 
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+  const id = useRef();
+  const pw = useRef();
+  const email = useRef();
+  const branch = useRef();
+  const level = useRef();
 
+  id.current = watch("id");
+  pw.current = watch("pw");
+  email.current = watch("email");
+  branch.current = watch("branch");
+  level.current = watch("level");
+
+  // const onSubmit = data => console.log(data);
 
   let [pwE, setPwE] = useState(0)
+  let [dupleE, setDupleE] = useState(false)
 
   // const serviceKey = 'kAiLDgObwpKuhrpEw3Sv1mdXTyKxxTGb4bZ8WXARB0OjuqySB3vnEU0ygAt73e1LOkVdSLg2Oafov24B4bd%2Bpw%3D%3D'
-  let sendData = {"email":"", "password":"", "company_type":"", "company_number":"", "company_name":"", "name":""}
+  let sendData = {"id":"", "password":"", "email":"", "branch":"", "level":""}
 
   function emailcheck(email){
       let regExp = /[0-9a-zA-Z][_0-9aA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
@@ -24,7 +40,6 @@ function SignUpForm() {
   function passwordcheck(pw, pwcheck){
 
       let regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[~!@#$%^&*<>?]).{8,20}$/i;
-      
       if(pw.length === 0 && pwcheck.length === 0) setPwE(1)    //아무것도 입력하지 않음
       else if(!pw.match(regExp)) setPwE(2)     //올바른 비밀번호가 아님.
       else{
@@ -34,12 +49,13 @@ function SignUpForm() {
       }
   }
   
-  let [dupleE, setDupleE] = useState(false)
+
   
 
 
   return (
     <>
+  
       {/* <div className='min-h-screen py-40 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500'>
         <div className='container mx-auto rounded-3xl bg-cover bg-center'>
           <div className='flex flex-col lg:flex-row p-10 rounded-xl mx-auto shadow-lg overflow-hidden'>
@@ -78,32 +94,60 @@ function SignUpForm() {
               </div>
             </div>
             <div className='lg:w-2/5 p-4 m-4'>
-              <form action='http://localhost:4000/server/signup' method='POST'>
+              <form action='http://localhost:3000/signup' method='POST' onSubmit={handleSubmit(onSubmit)}>
                 <h2 className='font-bold lg:text-2xl text-lg'>회원가입</h2>
                 <br/>
-                <label>E-mail</label>
-                <div className='font-bold text-red-600 ml-4'>
-                  <p id='emailText'></p>
-                </div>
-                <input type="email" id="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) key@coffee.com' onChange={(e=>{
-                  setDupleE(false);
-                  document.getElementById("emailText").innerText="올바른 Email을 입력해 주세요.";
-                })} />
-                <label>Password</label>
-                <input type="password" id="pw" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='비밀번호'/>
-                <label>Password 확인</label>
-                <input type="password" id="pwchk" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='비밀번호 확인'/>
-                <label>이름</label>
-                <input type="text" id="name" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) 김커피'/>
-                <label>생년월일</label>
-                <input type="number" id="birth" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='ex) 19991231'/>
-                <label>지점명</label>
-                <input id="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명'/>
+                
+                {/* <label className="font-bold">ID</label> */}
+                <input type="id" id="id" name="id" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='아이디' {...register("id",{
+                  required : true,
+                  minLength : 5
+                  })} />
+                {errors.id && errors.id.type === "required" && <p className="text-red-500">This id is required.</p>}
+                {errors.id && errors.id.type === "minLength" && <p className="text-red-500">ID must have at least 5 characters.</p>}
                 <br/>
-                <Link to="/"><button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>뒤로가기</button></Link>
-                <button className='flex float-right bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700' onClick={(e=>{
-                  passwordcheck(document.getElementById("pw").value, document.getElementById("pwchk").value);
+                
+                {/* <label className="font-bold">Password</label> */}
+                <input type="password" id="pw" name="pw" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='비밀번호' {...register("pw",{
+                  required : true,
+                  minLength : 8
+                })} />
+                {errors.pw && errors.pw.type === "required" && <p className="text-red-500">This field is required.</p>}
+                {errors.pw && errors.pw.type === "minLength" && <p className="text-red-500">Password must have at least 8 characters.</p>}
+                <br/>
 
+                {/* <label className="font-bold">Password 확인</label> */}
+                <input type="password" id="pwchk" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='비밀번호 확인' {...register("pwchk",{
+                  required : true,
+                  validate : (value) => value === pw.current
+                })}/>
+                {errors.pwchk && errors.pwchk.type === "required" && <p className="text-red-500">This field is required.</p>}
+                {errors.pwchk && errors.pwchk.type === "validate" && <p className="text-red-500">The password do not match.</p>}
+                <br/>
+
+                {/* <label className="font-bold">email</label> */}
+                <input type="email" id="email" name="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='E-mail'/>
+                <br/>
+
+                {/* <label className="font-bold">Level</label> */}
+                <input type="level" id="level" name="level" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='Level' {...register("level",{
+                  required : true,
+                  min : 0,
+                  max : 2
+                })}/>
+                {errors.level && errors.level.type === "required" && <p className="text-red-500">This field is required.</p>}
+                {errors.level && errors.level.type === "min" && <p className="text-red-500"> Level must be the value among 0 to 2 .</p>}
+                {errors.level && errors.level.type === "max" && <p className="text-red-500"> Level must be the value among 0 to 2 .</p>}
+                <br/>
+
+                {/* <label className="font-bold">지점명</label> */}
+                <input id="branch" name="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명'/>
+                <br/>
+                
+                <Link to="/signup"><button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>뒤로가기</button></Link>
+                <button className='flex float-right bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700' onClick={(e=>{
+                  sendData = {"id":id.current, "pw":pw.current, "email":email.current, "branch":branch.current, "level":level.current};
+                  
                 })}>가입하기</button>
               </form>
             </div>
