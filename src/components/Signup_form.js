@@ -146,8 +146,12 @@ function SignUpForm() {
                 
                 <Link to="/signup"><button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>뒤로가기</button></Link>
                 <button className='flex float-right bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700' onClick={(e=>{
-                  sendData = {"id":id.current, "pw":pw.current, "email":email.current, "branch":branch.current, "level":level.current};
-                  
+                  // sendData = {"id":id.current, "pw":pw.current, "email":email.current, "branch":branch.current, "level":level.current};
+                  try{
+                    // axios.post()
+                  }catch(error){
+
+                  }
                 })}>가입하기</button>
               </form>
             </div>
