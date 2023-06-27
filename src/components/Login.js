@@ -7,9 +7,9 @@ import axios from 'axios';
 
 const background_pic = require('../img/keycoffee1.jpg');
 
-let local_server = 'http://localhost:4000/login';
-let oracle_server = 'http://138.2.57.165/login';
-let test_server = 'http://localhost:4000/testfunction';
+let local_server = 'http://localhost:4000';
+let oracle_server = 'http://138.2.57.165';
+
 // let [ID, fixid] = useState("");
 // let PW = 'world';
 
@@ -45,7 +45,7 @@ function Login(){
 
               try{
                 axios.defaults.withCredentials = true;
-                axios.post(local_server, sendData).then((result)=>{
+                axios.post(oracle_server+"/login", sendData).then((result)=>{
 
                 console.log(result.data);
                 if(result.data){
