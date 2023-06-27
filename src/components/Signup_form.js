@@ -4,17 +4,19 @@ import background_pic from '../img/keycoffee2.jpg';
 import keycoffee_logo from '../img/keycoffee_logo.png';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
 
 
 function SignUpForm() {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
   const id = useRef();
   const pw = useRef();
   const email = useRef();
   const branch = useRef();
   const level = useRef();
+  const url = "http://localhost:4000";
+  const navigate = useNavigate();
 
   id.current = watch("id");
   pw.current = watch("pw");
@@ -30,27 +32,52 @@ function SignUpForm() {
   // const serviceKey = 'kAiLDgObwpKuhrpEw3Sv1mdXTyKxxTGb4bZ8WXARB0OjuqySB3vnEU0ygAt73e1LOkVdSLg2Oafov24B4bd%2Bpw%3D%3D'
   let sendData = {"id":"", "password":"", "email":"", "branch":"", "level":""}
 
-  function emailcheck(email){
-      let regExp = /[0-9a-zA-Z][_0-9aA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
-      if(email.length === 0){ document.getElementById("emailText").innerHTML = "E-mail을 입력하세요."; return 0; }
-      if(!email.match(regExp)){ document.getElementById("emailText").innerHTML = "올바른 이메일 주소가 아닙니다."; return 0; }
-      else return 1;
-  }
-
-  function passwordcheck(pw, pwcheck){
-
-      let regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[~!@#$%^&*<>?]).{8,20}$/i;
-      if(pw.length === 0 && pwcheck.length === 0) setPwE(1)    //아무것도 입력하지 않음
-      else if(!pw.match(regExp)) setPwE(2)     //올바른 비밀번호가 아님.
-      else{
-          if(pw === pwcheck) setPwE(3)//<p>비밀번호가 일치합니다.</p>
-          else if(pwcheck.length === 0) setPwE(4)//<p></p>
-          else setPwE(5) //<p>비밀번호가 일치하지 않습니다.</p>
+  const onSubmit = data => {
+    try{
+      axios.defaults.withCredentials = true;
+      axios.post(url+"/signup", data).then((result)=>{
+      console.log(result.data);
+      if(result.data){
+        setTimeout(function(){
+          console.log("로그인 성공");
+          navigate('/');
+        },200);
+      }else{
+        setTimeout(function(){
+          console.log("아이디 혹은 비밀번호가 일치하지 않습니다.");
+          alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+        },200);
       }
-  }
-  
+    })
+    .catch(error =>{
+      console.error("There is Error from Server, Please contact Administrator");
+      alert("There is Error from Server, Please contact Administrator\n", error.data);
+    });
 
-  
+    }catch(error){
+      console.error("There is Error from Server, Please contact Administrator");
+      alert("There is Error from Server, Please contact Administrator\n", error.data);
+    }
+  }
+
+  // function emailcheck(email){
+  //     let regExp = /[0-9a-zA-Z][_0-9aA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
+  //     if(email.length === 0){ document.getElementById("emailText").innerHTML = "E-mail을 입력하세요."; return 0; }
+  //     if(!email.match(regExp)){ document.getElementById("emailText").innerHTML = "올바른 이메일 주소가 아닙니다."; return 0; }
+  //     else return 1;
+  // }
+
+  // function passwordcheck(pw, pwcheck){
+
+  //     let regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[~!@#$%^&*<>?]).{8,20}$/i;
+  //     if(pw.length === 0 && pwcheck.length === 0) setPwE(1)    //아무것도 입력하지 않음
+  //     else if(!pw.match(regExp)) setPwE(2)     //올바른 비밀번호가 아님.
+  //     else{
+  //         if(pw === pwcheck) setPwE(3)//<p>비밀번호가 일치합니다.</p>
+  //         else if(pwcheck.length === 0) setPwE(4)//<p></p>
+  //         else setPwE(5) //<p>비밀번호가 일치하지 않습니다.</p>
+  //     }
+  // }
 
 
   return (
@@ -126,7 +153,7 @@ function SignUpForm() {
                 <br/>
 
                 {/* <label className="font-bold">email</label> */}
-                <input type="email" id="email" name="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='E-mail'/>
+                <input type="email" id="email" name="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='E-mail' {...register("email")}/>
                 <br/>
 
                 {/* <label className="font-bold">Level</label> */}
@@ -141,7 +168,7 @@ function SignUpForm() {
                 <br/>
 
                 {/* <label className="font-bold">지점명</label> */}
-                <input id="branch" name="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명'/>
+                <input id="branch" name="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명' {...register("branch")}/>
                 <br/>
                 
                 <Link to="/signup"><button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>뒤로가기</button></Link>
