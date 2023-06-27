@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react';
 import '../output.css';
 import keycoffee_logo from '../img/keycoffee_logo.png';
 import {useNavigate} from 'react-router-dom';
+
 // import background_pic from '../img/keycoffee1.JPG';
 import axios from 'axios';
 
 const background_pic = require('../img/keycoffee1.jpg');
 
-let local_server = 'http://localhost:4000/login';
-let oracle_server = 'http://138.2.57.165/login';
-let test_server = 'http://localhost:4000/testfunction';
+let local_server = 'http://localhost:4000';
+let oracle_server = 'http://138.2.57.165';
+let test_server = 'http://localhost:4000';
 // let [ID, fixid] = useState("");
 // let PW = 'world';
 
 let sendData = {"ID":"","PW":""};
-
+const url = process.env.REACT_APP_ORACLE_SERVER;
 
 function Login(){
 
+  console.log("바로 보여지지?");
   const navigate = useNavigate();
 
   return (
@@ -45,7 +47,7 @@ function Login(){
 
               try{
                 axios.defaults.withCredentials = true;
-                axios.post(local_server, sendData).then((result)=>{
+                axios.post(url+"/login", sendData).then((result)=>{
                 console.log(result.data);
                 if(result.data){
                   setTimeout(function(){
@@ -57,7 +59,6 @@ function Login(){
                     console.log("아이디 혹은 비밀번호가 일치하지 않습니다.");
                     alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
                   },200);
-                  
                 }
               })
               .catch(error =>{
@@ -76,7 +77,6 @@ function Login(){
         </form>
       </div>
   </div>
-  
   );
 }
 
