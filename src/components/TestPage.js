@@ -2,12 +2,16 @@ import React from 'react';
 import '../output.css';
 import background_pic from '../img/keycoffee1.jpg';
 import opera from '../img/opera.mp4';
+import {Link, Route, Routes} from 'react-router-dom';
+import axios from 'axios';
+import {alive} from '../fcs/token';
 
-let ID = 'hello';
-let PW = 'world';
+// const url = 'http://localhost:4000';
+const url = 'http://138.2.57.165';
 
 
 const TestPage = () => {
+
   return (
 <div className='m-6'>
   {/* <div className="flex justify-center">
@@ -43,13 +47,23 @@ const TestPage = () => {
   <input type="email" name="email" className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="you@example.com" />
 </label> */}
 <nav className="flex justify-center space-x-4">
-  <a href="/dashboard" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Home</a>
-  <a href="/team" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Team</a>
-  <a href="/projects" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Projects</a>
-  <a href="/reports" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Reports</a>
+  <button className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900" onClick={()=>{
+    
+    alive();
+
+  }}>Home</button>
+  {/* <Link to = "/dashboard" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Home</Link> */}
+  <Link to = "/team" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Team</Link>
+  <Link to = "/projects" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Projects</Link>
+  <Link to = "/reports" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Reports</Link>
+  
 </nav>
+
 <div>
-<iframe className="w-full aspect-video rounded-3xl" src={opera}></iframe>
+{/* <iframe className="w-full aspect-video rounded-3xl" src={opera}></iframe> */}
+  <button className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900" onClick={()=>{
+    
+  }}>Logout</button>
 </div>
 {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/9TZ8A1VZz_8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
 </div>
