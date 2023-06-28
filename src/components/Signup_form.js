@@ -15,7 +15,8 @@ function SignUpForm() {
   const email = useRef();
   const branch = useRef();
   const level = useRef();
-  const url = "http://localhost:4000";
+  // const url = "http://138.2.57.165"; //Oracle url
+  const url  = "http://localhost:4000"; //Local url
   const navigate = useNavigate();
 
   id.current = watch("id");
@@ -30,27 +31,22 @@ function SignUpForm() {
   let [dupleE, setDupleE] = useState(false)
 
   // const serviceKey = 'kAiLDgObwpKuhrpEw3Sv1mdXTyKxxTGb4bZ8WXARB0OjuqySB3vnEU0ygAt73e1LOkVdSLg2Oafov24B4bd%2Bpw%3D%3D'
-  let sendData = {"id":"", "password":"", "email":"", "branch":"", "level":""}
-
   const onSubmit = data => {
     try{
       axios.defaults.withCredentials = true;
       axios.post(url+"/signup", data).then((result)=>{
       console.log(result.data);
-      if(result.data){
-        setTimeout(function(){
-          console.log("로그인 성공");
-          navigate('/');
-        },200);
-      }else{
-        setTimeout(function(){
-          console.log("아이디 혹은 비밀번호가 일치하지 않습니다.");
-          alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
-        },200);
-      }
+      setTimeout(function(){
+        if(result.data == '23000'){
+          alert("사용할 수 없는 ID 입니다.");
+        }else{
+          alert("회원가입이 완료되었습니다.");
+          // navigate('/');
+        }
+      },200);
     })
     .catch(error =>{
-      console.error("There is Error from Server, Please contact Administrator");
+      console.error("There is Error from Server, Please contact Administrator\n", error.data);
       alert("There is Error from Server, Please contact Administrator\n", error.data);
     });
 
@@ -168,10 +164,13 @@ function SignUpForm() {
                 <br/>
 
                 {/* <label className="font-bold">지점명</label> */}
-                <input id="branch" name="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명' {...register("branch")}/>
+                <input id="branch" name="branch" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='지점명' {...register("branch",{
+                  required : true
+                })}/>
+                {errors.branch && errors.branch.type === "required" && <p className="text-red-500">This field is required.</p>}
                 <br/>
                 
-                <Link to="/signup"><button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>뒤로가기</button></Link>
+                <Link to="/"><button className='flex float-left bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700'>뒤로가기</button></Link>
                 <button className='flex float-right bg-blue-500 rounded-xl p-4 text-lg font-bold text-white mt-4 hover:bg-blue-700' onClick={(e=>{
                   // sendData = {"id":id.current, "pw":pw.current, "email":email.current, "branch":branch.current, "level":level.current};
                   try{

@@ -5,25 +5,29 @@ import {useNavigate} from 'react-router-dom';
 
 // import background_pic from '../img/keycoffee1.JPG';
 import axios from 'axios';
+// import alive from '../fcs/alive';
+// import hello from '../fcs/hello';
+import {alive, hello} from '../fcs/fcs';
 
 const background_pic = require('../img/keycoffee1.jpg');
 
-let local_server = 'http://localhost:4000';
-let oracle_server = 'http://138.2.57.165';
-let test_server = 'http://localhost:4000';
+// let server = 'http://localhost:4000';
+// let server = 'http://138.2.57.165';
+let url = 'http://localhost:4000';
 // let [ID, fixid] = useState("");
 // let PW = 'world';
 
 let sendData = {"ID":"","PW":""};
-const url = process.env.REACT_APP_ORACLE_SERVER;
 
 function Login(){
 
-  console.log("바로 보여지지?");
+  // alive();
+  alive();
+  hello();
+
   const navigate = useNavigate();
 
   return (
-
 
   <div className="flex items-center justify-center min-h-screen bg-opacity-50">
     <div className="fixed inset-0 flex items-center justify-center">
@@ -52,7 +56,7 @@ function Login(){
                 if(result.data){
                   setTimeout(function(){
                     console.log("로그인 성공");
-                    navigate('/main');
+                    navigate('/testpage');
                   },200);
                 }else{
                   setTimeout(function(){
