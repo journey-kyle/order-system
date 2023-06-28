@@ -4,14 +4,11 @@ import background_pic from '../img/keycoffee1.jpg';
 import opera from '../img/opera.mp4';
 import {Link, Route, Routes} from 'react-router-dom';
 import axios from 'axios';
-import alive from '../fcs/alive';
 
 const url = 'http://localhost:4000';
 
 
 const TestPage = () => {
-
-  alive();
 
   return (
 <div className='m-6'>

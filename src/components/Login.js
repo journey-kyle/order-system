@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 import '../output.css';
 import keycoffee_logo from '../img/keycoffee_logo.png';
 import {useNavigate} from 'react-router-dom';
-
-// import background_pic from '../img/keycoffee1.JPG';
 import axios from 'axios';
-// import alive from '../fcs/alive';
-// import hello from '../fcs/hello';
-import {alive, hello} from '../fcs/fcs';
+import {alive, hello} from '../fcs/token'
+
 
 const background_pic = require('../img/keycoffee1.jpg');
 
@@ -21,7 +18,6 @@ let sendData = {"ID":"","PW":""};
 
 function Login(){
 
-  // alive();
   alive();
   hello();
 

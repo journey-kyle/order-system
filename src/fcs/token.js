@@ -8,7 +8,6 @@ const url = 'http://localhost:4000';
 
 function alive(){
     
-
     try{
         axios.defaults.withCredentials = true;
         axios.get(url+"/accesstoken").then((result)=>{
@@ -38,4 +37,8 @@ function alive(){
 
 }
 
-export default alive;
+function hello(){
+    console.log("helloworld");
+}
+
+export {alive, hello};
