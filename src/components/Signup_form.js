@@ -15,7 +15,7 @@ function SignUpForm() {
   const email = useRef();
   const branch = useRef();
   const level = useRef();
-  const url = "http://localhost:4000";
+  const url = "http://138.2.57.165";
   const navigate = useNavigate();
 
   id.current = watch("id");

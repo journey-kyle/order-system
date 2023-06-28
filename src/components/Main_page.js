@@ -270,9 +270,11 @@ export default function Main_page() {
                     </Link>
                   </div>
                   <div className="flow-root">
-                    <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                      Create account
-                    </a>
+                    <Link to="/signup">
+                      <a className="-m-2 block p-2 font-medium text-gray-900">
+                        Create account
+                      </a>
+                    </Link>
                   </div>
                 </div>
 
