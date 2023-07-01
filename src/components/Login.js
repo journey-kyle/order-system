@@ -16,12 +16,21 @@ let url = 'http://localhost:4000';
 
 let sendData = {"ID":"","PW":""};
 
+
 function Login(){
 
-  alive();
-  hello();
-
+  const [state, setState] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(function(){
+
+    alive().then(result=>{
+      setState(result);
+      if(result == 1) navigate('/testpage');
+    })
+
+  }, []);
+  
 
   return (
 

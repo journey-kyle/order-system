@@ -41,7 +41,7 @@ function SignUpForm() {
           alert("사용할 수 없는 ID 입니다.");
         }else{
           alert("회원가입이 완료되었습니다.");
-          // navigate('/');
+          navigate('/');
         }
       },200);
     })
@@ -149,7 +149,10 @@ function SignUpForm() {
                 <br/>
 
                 {/* <label className="font-bold">email</label> */}
-                <input type="email" id="email" name="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='E-mail' {...register("email")}/>
+                <input type="email" id="email" name="email" className="flex flex-col w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" placeholder='E-mail' {...register("email",{
+                  required : true
+                })}/>
+                {errors.email && errors.email.type === "required" && <p className="text-red-500">This field is required.</p>}
                 <br/>
 
                 {/* <label className="font-bold">Level</label> */}
