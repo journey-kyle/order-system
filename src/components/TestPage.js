@@ -4,13 +4,53 @@ import background_pic from '../img/keycoffee1.jpg';
 import opera from '../img/opera.mp4';
 import {Link, Route, Routes, useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import {alive} from '../fcs/token'
+import {alive} from '../fcs/token';
+import url from '../fcs/const';
 
-const url = 'http://localhost:4000';
-
+// const url = 'http://localhost:5400';
+// const url = 'http://192.168.0.167:5400';
+// const url = 'http://122.34.11.98:5400';
+// const url = 'http://138.2.57.165';
 
 const TestPage = () => {
 
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState({name:"회원정보"});
+
+  let dataCall = 0;
+
+  useEffect(function(){
+
+    if(userInfo.name === "회원정보"){
+      try{
+        axios.get(url+"/accesstoken",{withCredentials:true}).then(result=>{
+          // setTimeout(function(){
+            setUserInfo(result.data);
+          // },10);
+        })
+      }catch(error){
+        console.log("error : ",error);
+      }
+    }
+
+    console.log("엥?");
+
+  },[userInfo]);
+
+  setTimeout(function(){
+    if(userInfo.name === "JsonWebTokenError" || userInfo.name === "TokenExpiredError") {
+      alert("만료된 페이지 입니다.");
+      navigate('/');
+    }else{
+      console.log(userInfo);
+      document.getElementById("username").innerText = userInfo.name;
+    }
+    
+  },10);
+  
+  dataCall = userInfo.username;
+
+  // document.getElementById("username").innerText = "gg"
 
   return (
 <div className='m-6'>
@@ -49,7 +89,7 @@ const TestPage = () => {
 <nav className="flex justify-center space-x-4">
   <button className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900" onClick={()=>{
 
-
+    console.log("data : ",userInfo);
 
   }}>Home</button>
   {/* <Link to = "/dashboard" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Home</Link> */}
@@ -58,9 +98,9 @@ const TestPage = () => {
   <Link to = "/reports" className="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Reports</Link>
   
 </nav>
-<button className="flex font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900" onClick={()=>{
+<button id="username" className="flex font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900" onClick={()=>{
     
-  }}>Logout
+  }}>회원정보
 </button>
 <div>
 {/* <iframe className="w-full aspect-video rounded-3xl" src={opera}></iframe> */}

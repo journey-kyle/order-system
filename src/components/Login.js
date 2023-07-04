@@ -4,33 +4,33 @@ import keycoffee_logo from '../img/keycoffee_logo.png';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import {alive, hello} from '../fcs/token'
-
+import url from'../fcs/const';
 
 const background_pic = require('../img/keycoffee1.jpg');
-
-// let server = 'http://localhost:4000';
-// let server = 'http://138.2.57.165';
-let url = 'http://localhost:4000';
-// let [ID, fixid] = useState("");
-// let PW = 'world';
 
 let sendData = {"ID":"","PW":""};
 
 
 function Login(){
 
-  const [state, setState] = useState(0);
+  const [state, setState] = useState({});
   const navigate = useNavigate();
-
+  let data;
+  console.log(url);
   useEffect(function(){
-
-    alive().then(result=>{
-      setState(result);
-      if(result == 1) navigate('/testpage');
-    })
-
-  }, []);
-  
+    // setTimeout(function(){
+      axios.get(url+"/accesstoken",{withCredentials:true}).then(result=>{
+        data = result.data;
+        console.log(data);
+        if(data.name === "JsonWebTokenError") console.log("JWT Error");//navigate('/testpage');
+        else if(data.name === "TokenExpiredError") console.log("Token Expired Error");
+        else{
+          console.log("로그인 됨");
+          navigate('/testpage');
+        }
+      // },10);
+    });
+  }, []); 
 
   return (
 
@@ -55,8 +55,8 @@ function Login(){
               sendData.PW = document.getElementById("PW").value;
 
               try{
-                axios.defaults.withCredentials = true;
-                axios.post(url+"/login", sendData).then((result)=>{
+                
+                axios.post(url+"/login", sendData,{withCredentials:true}).then((result)=>{
                 console.log(result.data);
                 if(result.data){
                   setTimeout(function(){

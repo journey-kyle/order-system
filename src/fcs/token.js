@@ -17,26 +17,26 @@ const url = 'http://localhost:4000';
 
 const alive = async () => {
 
-    let state = 0;
+    let state;
 
     try{
         axios.defaults.withCredentials = true;
         await axios.get(url+"/accesstoken").then((result)=>{
             if(result.data.name === "JsonWebTokenError"){
-                console.log("JsonWebTokenError");
-                console.log(result);
                 state = 4;
             }else{
-                console.log(result);
                 state = 1;
             }
+
+            return result.data;
+
         });
     }catch(error){
         console.log(error);
         state = 5;
+        return error;
     }
 
-    return state;
 }
 
 function hello(){
