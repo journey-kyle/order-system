@@ -10,27 +10,35 @@ const background_pic = require('../img/keycoffee1.jpg');
 
 let sendData = {"ID":"","PW":""};
 
+function Login(props){
+  props.setLogin(0);
 
-function Login(){
-
-  const [state, setState] = useState({});
   const navigate = useNavigate();
   let data;
-  console.log(url);
+
   useEffect(function(){
-    // setTimeout(function(){
+    
+    console.log("login state : ", props.login);
+    if(props.login === 0){
       axios.get(url+"/accesstoken",{withCredentials:true}).then(result=>{
         data = result.data;
         console.log(data);
+        console.log("login : ",props.login)
         if(data.name === "JsonWebTokenError") console.log("JWT Error");//navigate('/testpage');
         else if(data.name === "TokenExpiredError") console.log("Token Expired Error");
         else{
+          console.log("로그인 화면에서 사용자 인증 했을 때 : ", props.login);
           console.log("로그인 됨");
           navigate('/testpage');
         }
-      // },10);
     });
+    }
+    
   }, []); 
+
+
+
+
 
   return (
 
@@ -61,6 +69,7 @@ function Login(){
                 if(result.data){
                   setTimeout(function(){
                     console.log("로그인 성공");
+                    console.log("로그인 했을 때 : ", props.login);
                     navigate('/testpage');
                   },200);
                 }else{
