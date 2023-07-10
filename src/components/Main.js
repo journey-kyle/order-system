@@ -4,11 +4,13 @@ import background_pic from '../img/keycoffee1.jpg';
 import {Link, Route, Routes, useInRouterContext, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import url from '../fcs/const';
-import SignUpForm from '../components/Signup_form';
-import Main from '../components/Main_page';
-import Navigation from './navigation';
+import SignUpForm from './Signup_form';
+import Main_page from './Main_page';
+import Navigation from './Navigation';
+import OrderPage from './OrderPage';
+import Home from './Home';
 
-const TestPage = (props) => {
+const Main = (props) => {
 
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({id:0});
@@ -90,11 +92,10 @@ const TestPage = (props) => {
         </div>    
       </div>
       <Navigation itemSelect={itemSelect} setItemSelect={setItemSelect}/>
-      {itemSelect === "Home" ? <SignUpForm/> : itemSelect === "발주관리" ? <Main/> : ""}
-
+      {itemSelect === "Home" ? <Home/> : itemSelect === "발주관리" ? <OrderPage/> : itemSelect === "매출관리" ? <Main_page/> : ""}
       
     </>
   );
 }
 
-export default TestPage;
+export default Main;

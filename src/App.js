@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 import Footer from './components/Main_page'
 import Main_page from './components/Main_page';
 import SignUpForm from './components/Signup_form';
-import TestPage from './components/TestPage';
+import Main from './components/Main';
 
 function App() {
 
@@ -23,8 +23,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Login login={login} setLogin={setLogin}/>} />
               <Route path="/signup" element={<SignUpForm />} />
-              <Route path="/testpage" element={<TestPage login={login} setLogin={setLogin}/>} />
-              <Route path="/main" element={<Main_page/>} />
+              <Route path="/main" element={<Main login={login} setLogin={setLogin}/>} />
+              <Route path="/sub" element={<Main_page/>} />
             </Routes>
           </BrowserRouter>
       </div>

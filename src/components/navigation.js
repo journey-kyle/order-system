@@ -7,7 +7,7 @@ import url from '../fcs/const';
 import keycoffee_logo from '../img/keycoffee_logo.png';
 import main_menu from '../img/main-menu.png';
 
-const Navigation = (props) =>{
+const Navigation = (props) => {
 
     return(
         <>
@@ -15,7 +15,9 @@ const Navigation = (props) =>{
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex-shrink-0">
-                            <Link to="/testpage" ><img src={keycoffee_logo} alt="keycoffee logo" className='w-20'/></Link>
+                        <button onClick={()=>{
+                            props.setItemSelect("Home");
+                        }}><Link to="/main" ><img src={keycoffee_logo} alt="keycoffee logo" className='w-20'/></Link></button>
                         </div>
                         <div className="hidden md:block">
                             <div className="ml-10 flex items-baseline space-x-4">
@@ -52,18 +54,23 @@ const Navigation = (props) =>{
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 mx-auto">
                         <button className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onClick={()=>{
                             props.setItemSelect("Home");
+                            document.getElementById("navButton").classList.toggle("hidden");
                         }}>Home</button>
                         <button className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onClick={()=>{
                             props.setItemSelect("발주관리");
+                            document.getElementById("navButton").classList.toggle("hidden");
                         }}>발주관리</button>
                         <button className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onClick={()=>{
                             props.setItemSelect("매출관리");
+                            document.getElementById("navButton").classList.toggle("hidden");
                         }}>매출관리</button>
                         <button className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onClick={()=>{
                             props.setItemSelect("통계");
+                            document.getElementById("navButton").classList.toggle("hidden");
                         }}>통계</button>
                         <button className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onClick={()=>{
                             props.setItemSelect("Issue");
+                            document.getElementById("navButton").classList.toggle("hidden");
                         }}>Issue</button>
                     </div>
                 </div>

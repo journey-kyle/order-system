@@ -29,13 +29,23 @@ function Login(props){
         else{
           console.log("로그인 화면에서 사용자 인증 했을 때 : ", props.login);
           console.log("로그인 됨");
-          navigate('/testpage');
+          navigate('/main');
         }
     });
     }
     
   }, []); 
 
+  useEffect(()=>{
+    if(props.login === 1){
+      console.log("여기 사람있어요~");
+      window.addEventListener('popstate', window.location.reload());
+  
+      return ()=>{
+        window.removeEventListener('popstate', window.location.reload());
+      }
+    }
+  },[])
 
 
 
@@ -70,7 +80,7 @@ function Login(props){
                   setTimeout(function(){
                     console.log("로그인 성공");
                     console.log("로그인 했을 때 : ", props.login);
-                    navigate('/testpage');
+                    navigate('/main');
                   },200);
                 }else{
                   setTimeout(function(){
