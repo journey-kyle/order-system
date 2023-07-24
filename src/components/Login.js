@@ -18,17 +18,17 @@ function Login(props){
 
   useEffect(function(){
     
-    console.log("login state : ", props.login);
+    // console.log("login state : ", props.login);
     if(props.login === 0){
       axios.get(url+"/accesstoken",{withCredentials:true}).then(result=>{
         data = result.data;
-        console.log(data);
-        console.log("login : ",props.login)
-        if(data.name === "JsonWebTokenError") console.log("JWT Error");//navigate('/testpage');
-        else if(data.name === "TokenExpiredError") console.log("Token Expired Error");
+        // console.log(data);
+        // console.log("login : ",props.login)
+        if(data.name === "JsonWebTokenError") {}//console.log("JWT Error");//navigate('/testpage');
+        else if(data.name === "TokenExpiredError") {}//console.log("Token Expired Error");
         else{
-          console.log("로그인 화면에서 사용자 인증 했을 때 : ", props.login);
-          console.log("로그인 됨");
+          // console.log("로그인 화면에서 사용자 인증 했을 때 : ", props.login);
+          // console.log("로그인 됨");
           navigate('/main');
         }
     });
@@ -38,7 +38,7 @@ function Login(props){
 
   useEffect(()=>{
     if(props.login === 1){
-      console.log("여기 사람있어요~");
+      // console.log("여기 사람있어요~");
       window.addEventListener('popstate', window.location.reload());
   
       return ()=>{
@@ -75,27 +75,27 @@ function Login(props){
               try{
                 
                 axios.post(url+"/login", sendData,{withCredentials:true}).then((result)=>{
-                console.log(result.data);
+                // console.log(result.data);
                 if(result.data){
                   setTimeout(function(){
-                    console.log("로그인 성공");
-                    console.log("로그인 했을 때 : ", props.login);
+                    // console.log("로그인 성공");
+                    // console.log("로그인 했을 때 : ", props.login);
                     navigate('/main');
                   },200);
                 }else{
                   setTimeout(function(){
-                    console.log("아이디 혹은 비밀번호가 일치하지 않습니다.");
+                    // console.log("아이디 혹은 비밀번호가 일치하지 않습니다.");
                     alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
                   },200);
                 }
               })
               .catch(error =>{
-                console.error("There is Error from Server, Please contact Administrator");
+                // console.error("There is Error from Server, Please contact Administrator");
                 alert("There is Error from Server, Please contact Administrator\n", error.data);
               });
 
               }catch(error){
-                console.error("There is Error from Server, Please contact Administrator");
+                // console.error("There is Error from Server, Please contact Administrator");
                 alert("There is Error from Server, Please contact Administrator\n", error.data);
               }
               

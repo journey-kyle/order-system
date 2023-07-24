@@ -5,7 +5,7 @@ import keycoffee_logo from '../img/keycoffee_logo.png';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
-
+import url from '../fcs/const';
 
 function SignUpForm() {
 
@@ -16,7 +16,7 @@ function SignUpForm() {
   const branch = useRef();
   const level = useRef();
   // const url = "http://138.2.57.165"; //Oracle url
-  const url  = "http://localhost:4000"; //Local url
+  // const url  = "http://localhost:4000"; //Local url
   const navigate = useNavigate();
 
   id.current = watch("id");

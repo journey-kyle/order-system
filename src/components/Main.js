@@ -9,6 +9,7 @@ import Main_page from './Main_page';
 import Navigation from './Navigation';
 import OrderPage from './OrderPage';
 import Home from './Home';
+import Footer from './Footer';
 
 const Main = (props) => {
 
@@ -22,7 +23,7 @@ const Main = (props) => {
     if(props.login !== 2){
       if(userInfo.id === 0){
         try{
-          console.log("login : ", props.login)
+          // console.log("login : ", props.login)
           axios.get(url+"/accesstoken",{withCredentials:true}).then(result=>{
               if(result.data === undefined) {
                 navigate('/');
@@ -31,7 +32,7 @@ const Main = (props) => {
               props.setLogin(1);
           })
         }catch(error){
-          console.log("error : ",error);
+          // console.log("error : ",error);
         }
       }
     }
@@ -40,7 +41,7 @@ const Main = (props) => {
   useEffect(function(){
 
     if(props.login === 2){
-      console.log("login = ", props.login);
+      // console.log("login = ", props.login);
       // alert("로그아웃 되었습니다.");
       // window.open("/", "_self");
       navigate('/');
@@ -65,7 +66,7 @@ const Main = (props) => {
 
   return (
     <>
-      <div className='bg-gray-800 flex justify-end'>
+      <div className='fixed w-full bg-gray-800 flex justify-end z-10'>
         <div className='ml-10 flex items-baseline space-x-4'>
           <div id="branch" className='text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
             매장
@@ -81,11 +82,11 @@ const Main = (props) => {
             if(out){
               try{
                 axios.get(url+"/logout", {withCredentials:true}).then(result=>{
-                  console.log("result : ",result);
+                  // console.log("result : ",result);
                   if(result.data === false) props.setLogin(2);
                 });
               }catch(error){
-                console.log(error);
+                // console.log(error);
             }
           }}}>로그아웃
           </button>
@@ -93,7 +94,10 @@ const Main = (props) => {
       </div>
       <Navigation itemSelect={itemSelect} setItemSelect={setItemSelect}/>
       {itemSelect === "Home" ? <Home/> : itemSelect === "발주관리" ? <OrderPage/> : itemSelect === "매출관리" ? <Main_page/> : ""}
+
       
+      <Footer />
+
     </>
   );
 }
