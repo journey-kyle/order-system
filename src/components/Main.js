@@ -93,7 +93,7 @@ const Main = (props) => {
         </div>    
       </div>
       <Navigation itemSelect={itemSelect} setItemSelect={setItemSelect}/>
-      {itemSelect === "Home" ? <Home/> : itemSelect === "발주관리" ? <OrderPage/> : itemSelect === "매출관리" ? <Main_page/> : ""}
+      {itemSelect === "Home" ? <Home userInfo={userInfo}/> : itemSelect === "발주관리" ? <OrderPage/> : itemSelect === "매출관리" ? <Main_page/> : ""}
 
       
       <Footer />
