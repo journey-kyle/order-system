@@ -92,11 +92,12 @@ const Main = (props) => {
           </button>
         </div>    
       </div>
-      <Navigation itemSelect={itemSelect} setItemSelect={setItemSelect}/>
-      {itemSelect === "Home" ? <Home userInfo={userInfo}/> : itemSelect === "발주관리" ? <OrderPage/> : itemSelect === "매출관리" ? <Main_page/> : ""}
 
+      <Navigation itemSelect={itemSelect} setItemSelect={setItemSelect} userInfo={userInfo}/>
+      {itemSelect === "Home" ? <Home userInfo={userInfo}/> : itemSelect === "발주관리" ? <OrderPage/> : itemSelect === "매출관리" ? <Main_page/> : ""}
       
-      <Footer />
+      <Footer/>
+      
 
     </>
   );

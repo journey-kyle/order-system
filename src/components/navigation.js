@@ -36,6 +36,9 @@ const Navigation = (props) => {
                                 <button className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onClick={()=>{
                                     props.setItemSelect("Issue");
                                 }}>Issue</button>
+                                {props.userInfo.level == 0 && (<button className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onClick={()=>{
+                                    props.setItemSelect("설정");
+                                }}>설정</button>)}
                             </div>
                         </div>
                         <div className="-mr-2 flex lg:hidden">
@@ -72,6 +75,10 @@ const Navigation = (props) => {
                             props.setItemSelect("Issue");
                             document.getElementById("navButton").classList.toggle("hidden");
                         }}><div className='w-screen'>Issue</div></button>
+                        {props.userInfo.level == 0 && (<button className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onClick={()=>{
+                            props.setItemSelect("설정");
+                            document.getElementById("navButton").classList.toggle("hidden");
+                        }}><div className='w-screen'>설정</div></button>)}
                     </div>
                 </div>
             </nav>

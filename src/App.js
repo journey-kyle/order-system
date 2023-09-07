@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {BrowserRouter, Routes, Route, Lin} from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard from './Dashboard';
-import Footer from './components/Main_page'
+import Footer from './components/Footer';
 import Main_page from './components/Main_page';
 import SignUpForm from './components/Signup_form';
 import Main from './components/Main';
@@ -23,12 +23,15 @@ function App() {
             <Routes>
               <Route path="/" element={<Login login={login} setLogin={setLogin}/>} />
               <Route path="/signup" element={<SignUpForm />} />
+              {/* <Route path="/main" element={<Footer login={login} setLogin={setLogin}/>} /> */}
               <Route path="/main" element={<Main login={login} setLogin={setLogin}/>} />
               <Route path="/sub" element={<Main_page/>} />
             </Routes>
+            
           </BrowserRouter>
       </div>
     </div>
+    
   );
 }
 

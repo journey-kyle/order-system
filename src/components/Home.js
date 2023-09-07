@@ -1,58 +1,123 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Component} from 'react';
 import main_bg from '../img/main_bg.PNG';
 import { Link } from 'react-router-dom';
-import url, { titleLength, contentLength } from '../fcs/const';
-import Footer from './Footer';
+import url, { titleLength, contentLength, lgcontentLength } from '../fcs/const';
 import axios from 'axios';
-import add_note from '../img/add_note_icon.png';
+import News_Modal from './Home_modal/News_Modal';
+import Notice_Modal from './Home_modal/Notice_Modal';
+import NewsPage from './Home_modal/NewsPage';
+import NoticePage from './Home_modal/NoticePage';
 
 const Home = (props) => {
 
 
 
-    const notices = [
-        { id: 1, title: '공지사항 Database에서 정보를 불러오고 있습니다.', content: '공지사항은 공지사항 database에서 스크롤을 내릴 때마다 업데이트 되도록 만들려고 합니다. 많은 협조 바랍니다.' },
-        { id: 2, title: '환영합니다. 공지사항 페이지가 개설되었습니다.', content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.' },
-        { id: 3, title: '환영합니다. 공지사항 페이지가 개설되었습니다.', content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.' },
-        { id: 4, title: '환영합니다. 공지사항 페이지가 개설되었습니다.', content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.' },
+    const [notices,setNotices] = useState([
+        { id: 1,
+            title: '공지사항 Database에서 정보를 불러오고 있습니다.', 
+            content: '공지사항은 공지사항 database에서 스크롤을 내릴 때마다 업데이트 되도록 만들려고 합니다. 많은 협조 바랍니다.',
+            created_time: '2023.08.14'
+        },
+        { id: 2,
+            title: '환영합니다. 공지사항 페이지가 개설되었습니다.',
+            content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.',
+            created_time: '2023.07.03'
+        },
+        { id: 3, 
+            title: '환영합니다. 공지사항 페이지가 개설되었습니다.', 
+            content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
+            created_time: '2023.06.29'
+        },
+        { id: 4, 
+            title: '환영합니다. 공지사항 페이지가 개설되었습니다.', 
+            content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
+            created_time: '2023.06.22'
+        },
         // 필요한 만큼 공지사항 데이터를 추가합니다.
-    ];
-    const news = [
-        { id: 1, title: 'NEWS Database에서 정보를 불러오고 있습니다.', content: 'NEWS는 NEWS database에서 스크롤을 내릴 때마다 업데이트 되도록 만들려고 합니다. 많은 협조 바랍니다.' },
-        { id: 2, title: '환영합니다. NEWS 페이지가 개설되었습니다.', content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.' },
-        { id: 3, title: '환영합니다. NEWS 페이지가 개설되었습니다.', content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.' },
-        { id: 4, title: '환영합니다. NEWS 페이지가 개설되었습니다.', content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.' },
-        { id: 5, title: '환영합니다. NEWS 페이지가 개설되었습니다.', content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.' },
-        // 필요한 만큼 공지사항 데이터를 추가합니다.
-    ];
+    ]);
 
-    const [notice_data, setNotice_data] = useState("");
+    const [news,setNews] = useState([
+        { id: 1, 
+            title: 'NEWS Database에서 정보를 불러오고 있습니다.', 
+            content: 'NEWS는 NEWS database에서 스크롤을 내릴 때마다 업데이트 되도록 만들려고 합니다. 많은 협조 바랍니다.', 
+            created_time : '2023.09.04'
+        },
+        { id: 2, 
+            title: '환영합니다. NEWS 페이지가 개설되었습니다.', 
+            content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
+            created_time: '2023.08.31'
+        },
+        { id: 3, 
+            title: '환영합니다. NEWS 페이지가 개설되었습니다.', 
+            content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
+            created_time: '2023.08.01'
+        },
+        { id: 4, 
+            title: '환영합니다. NEWS 페이지가 개설되었습니다.', 
+            content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
+            created_time: '2023.07.23'
+        },
+        { id: 5, 
+            title: '환영합니다. NEWS 페이지가 개설되었습니다.', 
+            content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
+            created_time: '2023.06.05'
+        },
+        // 필요한 만큼 공지사항 데이터를 추가합니다.
+    ]);
+
     useEffect(function () {
 
         axios.get(url + "/notice", { withCredentials: true }).then(result => {
-            setNotice_data(result.data);
+            setNotices(result.data);
+            // console.log("console data : ", result.data);
+        });
+        axios.get(url + "/news", { withCredentials: true }).then(result => {
+            setNews(result.data);
             // console.log("console data : ", result.data);
         });
 
     }, []);
 
 
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openModal = () => {
-        setIsOpen(true);
+    const [isNoticeOpen, setIsNoticeOpen] = useState(false);
+    const [isNewsOpen, setIsNewsOpen] = useState(false);
+    const [isNoticePageOpen, setIsNoticePageOpen] = useState(false);
+    const [isNewsPageOpen, setIsNewsPageOpen] = useState(false);
+    
+    const openNoticeModal = () => {
+        setIsNoticeOpen(true);
     };
 
-    const closeModal = () => {
-        setIsOpen(false);
+    const closeNoticeModal = () => {
+        setIsNoticeOpen(false);
     };
 
+    const openNewsModal = () => {
+        setIsNewsOpen(true);
+    };
 
+    const closeNewsModal = () => {
+        setIsNewsOpen(false);
+    };
 
+    const openNoticePage = () => {
+        setIsNoticePageOpen(true);
+    };
+
+    const closeNoticePage = () => {
+        setIsNoticePageOpen(false);
+    };
+
+    const openNewsPage = () => {
+        setIsNewsPageOpen(true);
+    };
+
+    const closeNewsPage = () => {
+        setIsNewsPageOpen(false);
+    };
 
     return (
         <>
-
             <div className="relative overflow-auto lg:min-h-screen">
                 <div className="fixed inset-0 z-0 overflow-y-auto top-10"
                     style={{ backgroundImage: `url(${main_bg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
@@ -62,14 +127,29 @@ const Home = (props) => {
                         <div className='m-4 mx-auto'>
                             <div className='flex justify-between'>
                                 <h1 className="text-2xl font-bold mb-4 text-white">공지사항</h1>
-                                {props.userInfo.level == 0 && (<button className='text-white font-bold' onClick={openModal}>공지사항 추가</button>)}
-                                <Link to=""><p className="text-lg mb-4 text-white mt-2">{"<"}더보기{">"}</p></Link>
+                                {props.userInfo.level == 0 && (<button className='text-white mb-4 font-bold' onClick={openNoticeModal}>공지사항 추가</button>)}
+                                <button onClick={openNoticePage}><p className="text-lg text-white mb-4">{"<"}더보기{">"}</p></button>
                             </div>
                             <div className="grid">
-                                {notices.map((notice) => (
-                                    <div key={notice.id} className="bg-white bg-opacity-50 shadow-md p-4">
-                                        <h2 className="text-xl font-semibold">{notice.title.length < titleLength ? notice.title : notice.title.slice(0, titleLength) + "..."}</h2>
-                                        <p className="mt-2 text-md">{notice.content.length < contentLength ? notice.content : notice.content.slice(0, contentLength) + "..."}</p>
+                                {notices.map((item) => (
+                                    <div key={item.id} className="bg-white bg-opacity-50 shadow-md p-4">
+                                        <h2 className="text-xl font-semibold">{item.title.length < titleLength ? item.title : item.title.slice(0, titleLength) + "..."}</h2>
+                                        <div className="flex justify-between">
+                                            <p className="mt-2 text-md">{item.content.length < contentLength ? item.content : item.content.slice(0, contentLength) + "..."}</p>
+                                            <p className="mt-2 pl-21 lg:pl-20">{
+                                            new Date(item.created_time).toLocaleString('ko-KR', {
+                                                timeZone: 'Asia/Seoul',
+                                                year: 'numeric',
+                                                month: 'numeric',
+                                                day: 'numeric',
+                                                hour: 'numeric',
+                                                minute: 'numeric',
+                                                second: 'numeric',
+                                            }).slice(0,12)
+                                            }</p>
+                                            {/* <p>{isNoticePageOpen && (<p>냠</p>)}</p> */}
+                                        </div>
+                                        
                                     </div>
                                 ))}
                             </div>
@@ -81,13 +161,28 @@ const Home = (props) => {
                         <div className='m-4 mx-auto'>
                             <div className='flex justify-between'>
                                 <h1 className="text-2xl font-bold mb-4 text-white">NEWS</h1>
-                                <Link to=""><p className="text-lg mb-4 text-white mt-2">{"<"}더보기{">"}</p></Link>
+                                {props.userInfo.level == 0 && (<button className='text-white mb-4 font-bold' onClick={openNewsModal}>NEWS 추가</button>)}
+                                <button onClick={openNewsPage}><p className="text-lg text-white mb-4">{"<"}더보기{">"}</p></button>
                             </div>
                             <div className="grid">
-                                {news.map((news) => (
-                                    <div key={news.id} className="bg-white bg-opacity-50 shadow-md p-4">
-                                        <h2 className="text-xl font-semibold">{news.title.length < titleLength ? news.title : news.title.slice(0, titleLength) + "..."}</h2>
-                                        <p className="mt-2 text-md">{news.content.length < contentLength ? news.content : news.content.slice(0, contentLength) + "..."}</p>
+                                {news.map((item) => (
+                                    <div key={item.id} className="bg-white bg-opacity-50 shadow-md p-4">
+                                        <h2 className="text-xl font-semibold">{item.title.length < titleLength ? item.title : item.title.slice(0, titleLength) + "..."}</h2>
+                                        <div className="flex justify-between">
+                                            <p className="mt-2 text-md">{item.content.length < contentLength ? item.content : item.content.slice(0, contentLength) + "..."}</p>
+                                            <p className="mt-2 pl-21 lg:pl-20">{
+                                            new Date(item.created_time).toLocaleString('ko-KR', {
+                                                timeZone: 'Asia/Seoul',
+                                                year: 'numeric',
+                                                month: 'numeric',
+                                                day: 'numeric',
+                                                hour: 'numeric',
+                                                minute: 'numeric',
+                                                second: 'numeric',
+                                            }).slice(0,12)
+                                            }</p>
+                                        </div>
+                                        
                                     </div>
                                 ))}
                             </div>
@@ -97,38 +192,10 @@ const Home = (props) => {
             </div>
             {/* <Footer/> */}
 
-
-            {isOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="modal-overlay absolute w-500 h-1000 bg-gray-500 opacity-20"></div>
-
-                    <div className="modal-container bg-white w-full md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto rounded-2xl">
-                        <div className="modal-content py-4 text-left px-6">
-                            <div className="modal-header pb-3 flex justify-between">
-                                <h2 className="text-2xl font-semibold">공지사항 추가</h2>
-                                <button className="flex"><img src={add_note} className="w-10"/></button>
-                            </div>
-
-                            <div className="modal-body">
-                                <o>제목</o>
-                                <input className="w-full border border-blue-500 bg-white"></input>
-                                <p>내용</p>
-                                <textarea className="w-full h-40 border border-blue-500 bg-white"></textarea>
-                            </div>
-
-                            <div className="modal-footer pt-3">
-                                <button className="modal-close px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded">
-                                    추가
-                                </button>
-                                <button className="modal-close px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded" onClick={closeModal}>
-                                    닫기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
+            <News_Modal isNewsOpen={isNewsOpen} closeNewsModal={closeNewsModal}/>
+            <Notice_Modal isNoticeOpen={isNoticeOpen} closeNoticeModal={closeNoticeModal}/>
+            <NewsPage isNewsPageOpen={isNewsPageOpen} closeNewsPage={closeNewsPage} isNewsOpen={isNewsOpen} closeNewsModal={closeNewsModal} openNewsModal={openNewsModal} userInfo={props.userInfo}/>
+            <NoticePage isNoticePageOpen={isNoticePageOpen} closeNoticePage={closeNoticePage} isNoticeOpen={isNoticeOpen} closeNoticeModal={closeNoticeModal} openNoticeModal={openNoticeModal} userInfo={props.userInfo}/>
         </>
     )
 }

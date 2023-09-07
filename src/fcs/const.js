@@ -7,6 +7,7 @@ const url = 'http://localhost:5400';
 // export const url = 'http://138.2.57.165';
 
 export const titleLength = 30;
-export const contentLength = 30;
+export const contentLength = 20;
+export const lgcontentLength = 45;
 
 export default url;
