@@ -1,36 +1,12 @@
 import React, { useEffect, useState, Component} from 'react';
 import add_note from '../../img/add_note_icon.png';
+import KeyEvent from './KeyEvent';
 
 const News_Modal = (props) =>{
 
-    class N_modal extends Component{
-
-        componentDidMount() {
-            document.addEventListener('keydown', this.handleEscKey, false);
-        }
-
-        componentWillUnmount() {
-            document.removeEventListener('keydown', this.handleEscKey, false);
-        } 
-
-        handleEscKey = (e) => {
-            if (e.key === 'Escape') {
-                // ESC 키가 눌렸을 때 모달을 닫는 동작을 여기에 추가하세요.
-                try{
-                    props.closeNewsModal();
-                }catch(e){
-                    console.log(e);
-                }
-                
-            }
-        }
-        render(){
-            return;
-        }
-}
-
     return(
         <>
+            <KeyEvent event1={props.closeNewsModal}/>
             {props.isNewsOpen &&(
             <div className="fixed inset-0 flex items-center justify-center z-50">
                     <div className="modal-overlay absolute w-500 h-1000 bg-gray-500 opacity-20"></div>
@@ -70,8 +46,6 @@ const News_Modal = (props) =>{
                     </div>
                 </div>
             )}
-
-            <N_modal/>
         </>
     )
 }

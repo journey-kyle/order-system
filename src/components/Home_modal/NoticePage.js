@@ -1,7 +1,9 @@
-import React, { useEffect, useState, Component} from 'react';
+import React, { useEffect, useState, Component, useRef} from 'react';
 import axios from 'axios';
 import url, { titleLength, contentLength, lgcontentLength } from '../../fcs/const';
 import Notice_Modal from './Notice_Modal';
+import KeyEvent from './KeyEvent';
+
 
 const NoticePage = (props) => {
 
@@ -14,6 +16,7 @@ const NoticePage = (props) => {
             created_time:" "
         }
     ]);
+
 
     useEffect(function(){
         
@@ -35,6 +38,7 @@ const NoticePage = (props) => {
 
     return(
         <>
+        <KeyEvent event1={props.closeNoticePage}/>
         {props.isNoticePageOpen && !props.isNoticeOpen && (
             <div className="fixed inset-0 flex z-50 lg:m-10">
                 <div className="modal-container bg-white w-full h-5/6 my-auto mx-auto rounded shadow-lg overflow-y-auto rounded-2xl">

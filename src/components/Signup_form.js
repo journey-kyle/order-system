@@ -46,8 +46,8 @@ function SignUpForm() {
       },200);
     })
     .catch(error =>{
-      console.error("There is Error from Server, Please contact Administrator\n", error.data);
-      alert("There is Error from Server, Please contact Administrator\n", error.data);
+      console.error("There is an Axios Error from Server, Please contact Administrator\n", error.data);
+      alert("There is an Axios Error from Server, Please contact Administrator\n", error.data);
     });
 
     }catch(error){

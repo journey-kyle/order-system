@@ -1,37 +1,43 @@
-import React, { useEffect, useState, Component} from 'react';
+import React, { useEffect, useState, Component, useRef} from 'react';
 import add_note from '../../img/add_note_icon.png';
+import KeyEvent from './KeyEvent';
+import url from '../../fcs/const';
+import axios from 'axios';
+import {useForm} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
 
 const Notice_Modal = (props) =>{
 
-    class N_modal extends Component{
+    const [noticeData, setNoticeData] = useState({title:"",content:"",attached:""})
 
-        componentDidMount() {
-            document.addEventListener('keydown', this.handleEscKey, false);
-        }
 
-        componentWillUnmount() {
-            document.removeEventListener('keydown', this.handleEscKey, false);
-        } 
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const title = useRef();
+    const content = useRef();
+    // const attached = useRef();
 
-        handleEscKey = (e) => {
-            if (e.key === 'Escape') {
-                // ESC 키가 눌렸을 때 모달을 닫는 동작을 여기에 추가하세요.
-                try{
-                    props.closeNoticeModal();
-                }catch(e){
-                    console.log(e);
-                }
-                // console.log("hello");
-            }
-        }
+    const navigate = useNavigate();
 
-        render(){
-            return;
-        }
-    }
+    title.current = watch("title");
+    content.current = watch("content");
+    // attached.current = watch("email");
+
+    useEffect(function(){
+
+        setNoticeData({
+            title : document.getElementById("title"),
+            content : document.getElementById("content"),
+            attached : ""
+        });
+
+        console.log(noticeData);
+
+    },[])
+
 
     return(
         <>
+            <KeyEvent event1={props.closeNoticeModal}/>
             {props.isNoticeOpen &&(
             <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="modal-overlay absolute w-500 h-1000 bg-gray-500 opacity-20"></div>
@@ -45,9 +51,9 @@ const Notice_Modal = (props) =>{
 
                             <div className="modal-body">
                                 <p>제목</p>
-                                <input className="w-full border border-gray-400 border-2 bg-white"></input>
+                                <input id="title" className="w-full border border-gray-400 border-2 bg-white"></input>
                                 <p>내용</p>
-                                <textarea className="w-full h-80 border border-gray-400 border-2 bg-white"></textarea>
+                                <textarea id="content" className="w-full h-80 border border-gray-400 border-2 bg-white"></textarea>
                                 <div className="border border-gray-400 border-2 p-6 flex justify-center">
                                     <button className="flex" onClick={()=>{
                                         
@@ -61,7 +67,19 @@ const Notice_Modal = (props) =>{
 
                             <div className="modal-footer pt-3 flex justify-between">
                                 <button className="modal-close px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded" onClick={()=>{
-                                    console.log("추가 눌렀다아~!!");
+
+                                    try{
+                                        axios.post(url+"/addNotice",{withCredentials:true},noticeData).then(result=>{
+                                            if(result.data === undefined) {
+                                                alert("데이터가 없다!!");
+                                            }
+                                            else{
+                                                console.log("여기까지 ok?");
+                                            }
+                                        })
+                                    }catch(e){
+                                        console.log("에러다! : ", e);
+                                    }
                                 }}>
                                     추가
                                 </button>
@@ -73,8 +91,6 @@ const Notice_Modal = (props) =>{
                     </div>
                 </div>
             )}
-
-            <N_modal/>
         </>
     )
 }

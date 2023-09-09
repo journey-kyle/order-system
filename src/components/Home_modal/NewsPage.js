@@ -2,6 +2,7 @@ import React, { useEffect, useState, Component} from 'react';
 import axios from 'axios';
 import url, { titleLength, contentLength, lgcontentLength } from '../../fcs/const';
 import News_Modal from './News_Modal';
+import KeyEvent from './KeyEvent';
 
 const NewsPage = (props) => {
 
@@ -31,10 +32,11 @@ const NewsPage = (props) => {
             alert("에러나따", error);
         }
 
-    },[])
+    },[props.isNewsOpen])
 
     return(
         <>
+        <KeyEvent event1={props.closeNewsPage}/>
         {props.isNewsPageOpen && !props.isNewsOpen && (
             <div className="fixed inset-0 flex z-50 lg:m-10">
                 <div className="modal-container bg-white w-full h-5/6 my-auto mx-auto rounded shadow-lg overflow-y-auto rounded-2xl">
