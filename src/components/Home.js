@@ -7,82 +7,84 @@ import News_Modal from './Home_modal/News_Modal';
 import Notice_Modal from './Home_modal/Notice_Modal';
 import NewsPage from './Home_modal/NewsPage';
 import NoticePage from './Home_modal/NoticePage';
+import NoticeDetailDirect from './Home_modal/NoticeDetailDirect';
+
+// import value from '../fcs/values';
 
 const Home = (props) => {
 
-
+    
 
     const [notices,setNotices] = useState([
         { id: 1,
-            title: '공지사항 Database에서 정보를 불러오고 있습니다.', 
-            content: '공지사항은 공지사항 database에서 스크롤을 내릴 때마다 업데이트 되도록 만들려고 합니다. 많은 협조 바랍니다.',
-            created_time: '2023.08.14'
-        },
-        { id: 2,
-            title: '환영합니다. 공지사항 페이지가 개설되었습니다.',
-            content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.',
-            created_time: '2023.07.03'
-        },
-        { id: 3, 
-            title: '환영합니다. 공지사항 페이지가 개설되었습니다.', 
-            content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
-            created_time: '2023.06.29'
-        },
-        { id: 4, 
-            title: '환영합니다. 공지사항 페이지가 개설되었습니다.', 
-            content: '공지사항 페이지가 생성되었습니다. 평소에 공지를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
-            created_time: '2023.06.22'
-        },
+            title: '공지사항 서버와 통신이 원활하지 않습니다.', 
+            content: '공지사항 서버와 통신이 원활하지 않습니다.',
+            created_time: Date()
+        }
         // 필요한 만큼 공지사항 데이터를 추가합니다.
     ]);
 
     const [news,setNews] = useState([
         { id: 1, 
-            title: 'NEWS Database에서 정보를 불러오고 있습니다.', 
-            content: 'NEWS는 NEWS database에서 스크롤을 내릴 때마다 업데이트 되도록 만들려고 합니다. 많은 협조 바랍니다.', 
-            created_time : '2023.09.04'
-        },
-        { id: 2, 
-            title: '환영합니다. NEWS 페이지가 개설되었습니다.', 
-            content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
-            created_time: '2023.08.31'
-        },
-        { id: 3, 
-            title: '환영합니다. NEWS 페이지가 개설되었습니다.', 
-            content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
-            created_time: '2023.08.01'
-        },
-        { id: 4, 
-            title: '환영합니다. NEWS 페이지가 개설되었습니다.', 
-            content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
-            created_time: '2023.07.23'
-        },
-        { id: 5, 
-            title: '환영합니다. NEWS 페이지가 개설되었습니다.', 
-            content: 'NEWS 페이지가 생성되었습니다. 평소에 NEWS를 잘 확인하시고, 놓치는 일이 없도록 하시기 바랍니다.', 
-            created_time: '2023.06.05'
-        },
+            title: 'NEWS 서버와 통신이 원활하지 않습니다.', 
+            content: 'NEWS 서버와 통신이 원활하지 않습니다.', 
+            created_time : Date()
+        }
         // 필요한 만큼 공지사항 데이터를 추가합니다.
     ]);
 
+
+    const [updatePage, setUpdatePage] = useState(true);
+
+    const [newData, setNewData] = useState({id:""});
+    
     useEffect(function () {
 
         axios.get(url + "/notice", { withCredentials: true }).then(result => {
-            setNotices(result.data);
-            // console.log("console data : ", result.data);
+            if(result.data.length === 0) {
+                console.log("데이터가 없습니다.");
+            }else {
+                // setNotices(result.data);
+                if(result.data.length < 6)
+                {
+                    setNotices(result.data);
+                }else{
+                    
+                    setNotices([result.data[0], result.data[1], result.data[2], result.data[3], result.data[4], result.data[5]]);
+                }
+            }
         });
         axios.get(url + "/news", { withCredentials: true }).then(result => {
-            setNews(result.data);
-            // console.log("console data : ", result.data);
+            if(result.data.length === 0) {
+                console.log("데이터가 없습니다.");
+            }else {
+                // setNotices(result.data);
+                if(result.data.length < 6)
+                {
+                    setNews(result.data);
+                }else{
+                    
+                    setNews([result.data[0], result.data[1], result.data[2], result.data[3], result.data[4], result.data[5]]);
+                }
+            }
         });
 
-    }, []);
-
+    }, [updatePage]);
 
     const [isNoticeOpen, setIsNoticeOpen] = useState(false);
     const [isNewsOpen, setIsNewsOpen] = useState(false);
     const [isNoticePageOpen, setIsNoticePageOpen] = useState(false);
     const [isNewsPageOpen, setIsNewsPageOpen] = useState(false);
+    const [isNoticeDetailDirectOpen, setIsNoticeDetailDirectOpen] = useState(false);
+    const [noticeDetailDirectItem, setNoticeDetailDirectItem] = useState({id:"",title:"",content:"",attached:"",created_time:""});
+
+    const openNoticeDetailDirect = () => {
+        setIsNoticeDetailDirectOpen(true);
+    };
+
+    const closeNoticeDetailDirect = () => {
+        setIsNoticeDetailDirectOpen(false);
+    };
     
     const openNoticeModal = () => {
         setIsNoticeOpen(true);
@@ -116,9 +118,14 @@ const Home = (props) => {
         setIsNewsPageOpen(false);
     };
 
+    const toggleUpdatePage = () => {
+        if(updatePage) setUpdatePage(false);
+        else setUpdatePage(true);
+    }
+
     return (
         <>
-            <div className="relative overflow-auto lg:min-h-screen">
+            <div className="relative overflow-y-auto lg:min-h-screen">
                 <div className="fixed inset-0 z-0 overflow-y-auto top-10"
                     style={{ backgroundImage: `url(${main_bg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 </div>
@@ -131,8 +138,11 @@ const Home = (props) => {
                                 <button onClick={openNoticePage}><p className="text-lg text-white mb-4">{"<"}더보기{">"}</p></button>
                             </div>
                             <div className="grid">
-                                {notices.map((item) => (
-                                    <div key={item.id} className="bg-white bg-opacity-50 shadow-md p-4">
+                                {notices.length && notices.map((item) => (
+                                    <div key={item.id} className="bg-white bg-opacity-50 shadow-md p-4 rounded-md" onClick={()=>{
+                                        setNoticeDetailDirectItem(item);
+                                        openNoticeDetailDirect();
+                                    }}>
                                         <h2 className="text-xl font-semibold">{item.title.length < titleLength ? item.title : item.title.slice(0, titleLength) + "..."}</h2>
                                         <div className="flex justify-between">
                                             <p className="mt-2 text-md">{item.content.length < contentLength ? item.content : item.content.slice(0, contentLength) + "..."}</p>
@@ -165,7 +175,7 @@ const Home = (props) => {
                                 <button onClick={openNewsPage}><p className="text-lg text-white mb-4">{"<"}더보기{">"}</p></button>
                             </div>
                             <div className="grid">
-                                {news.map((item) => (
+                                {news.length && news.map((item) => (
                                     <div key={item.id} className="bg-white bg-opacity-50 shadow-md p-4">
                                         <h2 className="text-xl font-semibold">{item.title.length < titleLength ? item.title : item.title.slice(0, titleLength) + "..."}</h2>
                                         <div className="flex justify-between">
@@ -192,10 +202,30 @@ const Home = (props) => {
             </div>
             {/* <Footer/> */}
 
-            <News_Modal isNewsOpen={isNewsOpen} closeNewsModal={closeNewsModal}/>
-            <Notice_Modal isNoticeOpen={isNoticeOpen} closeNoticeModal={closeNoticeModal}/>
-            <NewsPage isNewsPageOpen={isNewsPageOpen} closeNewsPage={closeNewsPage} isNewsOpen={isNewsOpen} closeNewsModal={closeNewsModal} openNewsModal={openNewsModal} userInfo={props.userInfo}/>
-            <NoticePage isNoticePageOpen={isNoticePageOpen} closeNoticePage={closeNoticePage} isNoticeOpen={isNoticeOpen} closeNoticeModal={closeNoticeModal} openNoticeModal={openNoticeModal} userInfo={props.userInfo}/>
+            <News_Modal isNewsOpen={isNewsOpen}
+                        closeNewsModal={closeNewsModal} 
+                        updatePage={updatePage}
+                        toggleUpdatePage={toggleUpdatePage}/>
+            <Notice_Modal isNoticeOpen={isNoticeOpen}
+                            closeNoticeModal={closeNoticeModal}
+                            updatePage={updatePage}
+                            toggleUpdatePage={toggleUpdatePage}/>
+            <NewsPage isNewsPageOpen={isNewsPageOpen} 
+                        closeNewsPage={closeNewsPage} 
+                        isNewsOpen={isNewsOpen} 
+                        closeNewsModal={closeNewsModal} 
+                        openNewsModal={openNewsModal} 
+                        userInfo={props.userInfo}
+                        updatePage={updatePage}
+                        toggleUpdatePage={toggleUpdatePage}/>
+            <NoticePage isNoticePageOpen={isNoticePageOpen} 
+                        closeNoticePage={closeNoticePage} 
+                        isNoticeOpen={isNoticeOpen} 
+                        closeNoticeModal={closeNoticeModal} 
+                        openNoticeModal={openNoticeModal} 
+                        userInfo={props.userInfo}
+                        updatePage={updatePage}
+                        toggleUpdatePage={toggleUpdatePage}/>
         </>
     )
 }

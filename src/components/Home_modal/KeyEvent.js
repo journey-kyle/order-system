@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 
 
 const KeyEvent = (props) => {
+    
     class Key_Event extends Component{
 
         componentDidMount() {
@@ -12,7 +13,7 @@ const KeyEvent = (props) => {
             document.removeEventListener('keydown', this.handleEscKey, false);
         } 
 
-
+        
     
         handleEscKey = (e) => {
             if (e.key === 'Escape') {
@@ -20,18 +21,7 @@ const KeyEvent = (props) => {
                 try{
                     props.event1();
                 }catch(e){
-                    console.log(e);
-                }
-                
-            }
-        }
-
-        handleEnterKey = (e) => {
-            if(e.key === 'Enter') {
-                try{
-                    console.log("나 엔터키 누름");
-                }catch(e){
-                    console.log(e);
+                    // console.log("에러다!!", e);
                 }
                 
             }
