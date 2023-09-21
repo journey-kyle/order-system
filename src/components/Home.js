@@ -8,12 +8,26 @@ import Notice_Modal from './Home_modal/Notice_Modal';
 import NewsPage from './Home_modal/NewsPage';
 import NoticePage from './Home_modal/NoticePage';
 import NoticeDetailDirect from './Home_modal/NoticeDetailDirect';
-
-// import value from '../fcs/values';
+import { useDispatch, useSelector } from 'react-redux';
+import {toggleNoticeModal, 
+    toggleNoticePage, 
+    toggleNoticeDetail, 
+    toggleNoticeDetailModify,
+    toggleNewsModal, 
+    toggleNewsPage, 
+    toggleNewsDetail, 
+    toggleNewsDetailModify,
+    toggleUpdatePage,
+    setUserInfo,
+    setNoticeDetailItem,
+} from '../store/store';
 
 const Home = (props) => {
 
-    
+    const dispatch = useDispatch();
+    const homeModalState = useSelector((state)=>{
+        return state.homeModalState;
+    })
 
     const [notices,setNotices] = useState([
         { id: 1,
@@ -68,6 +82,8 @@ const Home = (props) => {
                 }
             }
         });
+
+
 
     }, [updatePage]);
 
@@ -140,8 +156,9 @@ const Home = (props) => {
                             <div className="grid">
                                 {notices.length && notices.map((item) => (
                                     <div key={item.id} className="bg-white bg-opacity-50 shadow-md p-4 rounded-md" onClick={()=>{
-                                        setNoticeDetailDirectItem(item);
-                                        openNoticeDetailDirect();
+                                        dispatch(setNoticeDetailItem(item));
+                                        dispatch(toggleNoticeDetail());
+                                        
                                     }}>
                                         <h2 className="text-xl font-semibold">{item.title.length < titleLength ? item.title : item.title.slice(0, titleLength) + "..."}</h2>
                                         <div className="flex justify-between">
@@ -226,6 +243,7 @@ const Home = (props) => {
                         userInfo={props.userInfo}
                         updatePage={updatePage}
                         toggleUpdatePage={toggleUpdatePage}/>
+            <NoticeDetailDirect/>
         </>
     )
 }

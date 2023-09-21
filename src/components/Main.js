@@ -10,6 +10,8 @@ import Navigation from './Navigation';
 import OrderPage from './OrderPage';
 import Home from './Home';
 import Footer from './Footer';
+import { useDispatch } from 'react-redux';
+import {setUserInfo} from '../store/store';
 
 const Main = (props) => {
 
@@ -17,7 +19,7 @@ const Main = (props) => {
   const [userInfo, setUserInfo] = useState({id:0});
   const [itemSelect, setItemSelect] = useState("Home");
 
-
+  let dispatch = useDispatch();
 
   useEffect(function(){
     if(props.login !== 2){
@@ -52,7 +54,7 @@ const Main = (props) => {
 
       setTimeout(function(){
         if(userInfo.name === "JsonWebTokenError" || userInfo.name === "TokenExpiredError") {
-          alert("만료된 페이지 입니다.");
+          // alert("만료된 페이지 입니다.");
           navigate("/");
         }else{
           if(userInfo.name !== undefined) {

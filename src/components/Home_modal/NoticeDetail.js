@@ -69,7 +69,7 @@ const NoticeDetail = (props) => {
                                                 })}</p>
                             </div>
                             <div className="modal-body bg-white h-5/6 pt-5 pl-2 rounded-3xl">
-                                <textarea id="contents" disabled className='w-full h-80 h-5/6 resize-none' defaultValue={props.noticeDetailItem.content}></textarea>
+                                <textarea id="contents" disabled className='w-full h-full h-5/6 resize-none' defaultValue={props.noticeDetailItem.content}></textarea>
 
                                 {props.noticeDetailItem.attached != "" &&
                                 <div className="border border-gray-400 border-2">
